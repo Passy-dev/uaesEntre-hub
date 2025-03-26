@@ -197,9 +197,11 @@
     // Function to Load Existing Skills from LocalStorage
 function loadSkills() {
     let skills = localStorage.getItem("studentSkills");
-    let skillsList = document.getElementById("skills-list");
+    let skillsList = document.getElementById("skills-list"); // Skills section
+    let printSkillsList = document.getElementById("print-profile-skills"); // Print Profile section
 
     skillsList.innerHTML = ""; // Clear previous list
+    printSkillsList.innerHTML = ""; // Clear previous list in print profile
 
     if (skills) {
         skills = JSON.parse(skills);
@@ -210,13 +212,19 @@ function loadSkills() {
                 let listItem = document.createElement("li");
                 listItem.textContent = skill;
                 skillsList.appendChild(listItem);
+
+                let printItem = document.createElement("li");
+                printItem.textContent = skill;
+                printSkillsList.appendChild(printItem);
             });
         } else {
             skillsList.innerHTML = "<li>No skills registered.</li>";
+            printSkillsList.innerHTML = "<li>No skills registered.</li>";
         }
     } else {
         console.log("No skills found in localStorage."); // Debugging log
         skillsList.innerHTML = "<li>No skills registered.</li>";
+        printSkillsList.innerHTML = "<li>No skills registered.</li>";
     }
 }
 
