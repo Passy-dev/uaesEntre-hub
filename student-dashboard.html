@@ -195,28 +195,28 @@
     });
     
     // Function to Load Existing Skills from LocalStorage
-    function loadSkills() {
-        let skills = localStorage.getItem("studentSkills");
-        let skillsList = document.getElementById("skills-list");
-    
-        if (skills) {
-            skills = JSON.parse(skills);
-            skillsList.innerHTML = ""; // Clear existing list
-    
-            if (skills.length > 0) {
-                skills.forEach(skill => {
-                    let listItem = document.createElement("li");
-                    listItem.textContent = skill;
-                    skillsList.appendChild(listItem);
-                });
-            } else {
-                skillsList.innerHTML = "<li>No skills registered.</li>";
-            }
+  function loadSkills() {
+    let skills = localStorage.getItem("studentSkills");
+    let skillsList = document.getElementById("skills-list");
+
+    skillsList.innerHTML = ""; // Clear previous list
+
+    if (skills) {
+        skills = JSON.parse(skills);
+        if (skills.length > 0) {
+            skills.forEach(skill => {
+                let listItem = document.createElement("li");
+                listItem.textContent = skill;
+                skillsList.appendChild(listItem);
+            });
         } else {
             skillsList.innerHTML = "<li>No skills registered.</li>";
         }
+    } else {
+        skillsList.innerHTML = "<li>No skills registered.</li>";
     }
-    
+}
+
     // Function to Update Skills and Reflect Changes in "Check Skills"
     function updateSkills() {
         let selectedSkills = [];
