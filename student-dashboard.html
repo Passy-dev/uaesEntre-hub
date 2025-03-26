@@ -195,7 +195,7 @@
     });
     
     // Function to Load Existing Skills from LocalStorage
-  function loadSkills() {
+function loadSkills() {
     let skills = localStorage.getItem("studentSkills");
     let skillsList = document.getElementById("skills-list");
 
@@ -203,6 +203,8 @@
 
     if (skills) {
         skills = JSON.parse(skills);
+        console.log("Retrieved skills:", skills); // Debugging log
+
         if (skills.length > 0) {
             skills.forEach(skill => {
                 let listItem = document.createElement("li");
@@ -213,34 +215,35 @@
             skillsList.innerHTML = "<li>No skills registered.</li>";
         }
     } else {
+        console.log("No skills found in localStorage."); // Debugging log
         skillsList.innerHTML = "<li>No skills registered.</li>";
     }
 }
 
+
     // Function to Update Skills and Reflect Changes in "Check Skills"
     function updateSkills() {
-        let selectedSkills = [];
-        let checkboxes = document.querySelectorAll("#skill-options input[type='checkbox']:checked");
-    
-        checkboxes.forEach((checkbox) => {
-            if (selectedSkills.length < 3) {
-                selectedSkills.push(checkbox.value);
-            } else {
-                checkbox.checked = false; // Prevent selecting more than 3
-            }
-        });
-    
-        if (selectedSkills.length !== 3) {
-            alert("Please select exactly 3 skills.");
-            return;
+    let selectedSkills = [];
+    let checkboxes = document.querySelectorAll("#skill-options input[type='checkbox']:checked");
+
+    checkboxes.forEach((checkbox) => {
+        if (selectedSkills.length < 3) {
+            selectedSkills.push(checkbox.value);
+        } else {
+            checkbox.checked = false; // Prevent selecting more than 3
         }
-    
-        // Update Local Storage with new skills
-        localStorage.setItem("studentSkills", JSON.stringify(selectedSkills));
-    
-        // Immediately update the "Check Skills" section
-        displayUpdatedSkills();
+    });
+
+    if (selectedSkills.length !== 3) {
+        alert("Please select exactly 3 skills.");
+        return;
     }
+
+    localStorage.setItem("studentSkills", JSON.stringify(selectedSkills));
+    console.log("Updated skills saved:", selectedSkills); // Debugging log
+    loadSkills(); // Ensure it updates immediately
+}
+
     
     // Function to Load Existing Skills into Update Section
     function loadExistingSkills() {
